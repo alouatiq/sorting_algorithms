@@ -1,6 +1,6 @@
-# Compiler
+# Compiler and Flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -pedantic -std=gnu89
+CFLAGS = -Wall -Wextra -Werror -pedantic -std=gnu89 -I.
 
 # Source files
 SRCS = print_array.c print_list.c sort.h
@@ -9,7 +9,7 @@ INSERTION_SORT = 1-insertion_sort_list.c
 SELECTION_SORT = 2-selection_sort.c
 QUICK_SORT = 3-quick_sort.c
 
-# Main files
+# Main test files
 MAIN_BUBBLE = main/0-main.c
 MAIN_INSERTION = main/1-main.c
 MAIN_SELECTION = main/2-main.c
@@ -21,10 +21,10 @@ INSERTION_EXEC = insertion_sort
 SELECTION_EXEC = selection_sort
 QUICK_EXEC = quick_sort
 
-# All target
+# All target - Builds all executables
 all: $(BUBBLE_EXEC) $(INSERTION_EXEC) $(SELECTION_EXEC) $(QUICK_EXEC)
 
-# Compile each sorting algorithm with its main file
+# Compile each sorting algorithm with its main file and helper functions
 $(BUBBLE_EXEC): $(BUBBLE_SORT) $(SRCS) $(MAIN_BUBBLE)
 	$(CC) $(CFLAGS) $(MAIN_BUBBLE) $(BUBBLE_SORT) print_array.c -o $(BUBBLE_EXEC)
 
@@ -37,7 +37,7 @@ $(SELECTION_EXEC): $(SELECTION_SORT) $(SRCS) $(MAIN_SELECTION)
 $(QUICK_EXEC): $(QUICK_SORT) $(SRCS) $(MAIN_QUICK)
 	$(CC) $(CFLAGS) $(MAIN_QUICK) $(QUICK_SORT) print_array.c -o $(QUICK_EXEC)
 
-# Run tests for each executable
+# Test target - Runs each executable in sequence
 test: all
 	@echo "\nTesting Bubble Sort:"
 	@./$(BUBBLE_EXEC)
@@ -48,7 +48,7 @@ test: all
 	@echo "\nTesting Quick Sort:"
 	@./$(QUICK_EXEC)
 
-# Clean up generated files
+# Clean target - Removes all executables
 clean:
 	rm -f $(BUBBLE_EXEC) $(INSERTION_EXEC) $(SELECTION_EXEC) $(QUICK_EXEC)
 
