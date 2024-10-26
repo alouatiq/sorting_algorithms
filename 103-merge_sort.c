@@ -14,10 +14,12 @@ void merge(int *array, int *temp, size_t left, size_t mid, size_t right);
  */
 void merge_sort(int *array, size_t size)
 {
+    int *temp;  /* Declaration moved to the top */
+
     if (array == NULL || size < 2)
         return;
 
-    int *temp = malloc(sizeof(int) * size);
+    temp = malloc(sizeof(int) * size);
     if (temp == NULL)
         return;
 
