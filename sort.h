@@ -1,5 +1,3 @@
-### 2. **sort.h**
-```c
 #ifndef SORT_H
 #define SORT_H
 
