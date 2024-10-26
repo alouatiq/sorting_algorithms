@@ -60,8 +60,8 @@ bitonic_sort: main/106-main.c 106-bitonic_sort.c $(AUXILIARY) sort.h
 quick_sort_hoare: main/107-main.c 107-quick_sort_hoare.c $(AUXILIARY) sort.h
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ main/107-main.c 107-quick_sort_hoare.c $(AUXILIARY)
 
-deck_sort: main/1000-main.c 1000-sort_deck.c $(AUXILIARY) sort.h deck.h
-	$(CC) $(CFLAGS) $(INCLUDES) -o $@ main/1000-main.c 1000-sort_deck.c $(AUXILIARY)
+deck_sort: main/1000-main.c 1000-sort_deck.c deck.h
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ main/1000-main.c 1000-sort_deck.c
 
 # Target to test all executables
 test: all
