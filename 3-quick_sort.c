@@ -5,7 +5,8 @@ void quick_sort_recursive(int *array, int low, int high, size_t size);
 int lomuto_partition(int *array, int low, int high, size_t size);
 
 /**
-	* quick_sort - Sorts an array of integers in ascending order using Quick Sort
+	* quick_sort - Sorts an array of integers
+ 	* in ascending order using Quick Sort
 	* @array: Pointer to the array to sort
 	* @size: Number of elements in the array
 	*/
@@ -68,5 +69,5 @@ int lomuto_partition(int *array, int low, int high, size_t size)
 	array[high] = temp;
 	print_array(array, size);
 	}
-	return i + 1;
+	return (i + 1);
 }
