@@ -10,10 +10,10 @@
  */
 typedef enum kind_e
 {
-SPADE = 0,
-HEART,
-CLUB,
-DIAMOND
+    SPADE = 0,
+    HEART,
+    CLUB,
+    DIAMOND
 } kind_t;
 
 /**
@@ -23,8 +23,8 @@ DIAMOND
  */
 typedef struct card_s
 {
-const char *value;
-const kind_t kind;
+    const char *value;
+    const kind_t kind;
 } card_t;
 
 /**
@@ -35,12 +35,13 @@ const kind_t kind;
  */
 typedef struct deck_node_s
 {
-const card_t *card;
-struct deck_node_s *prev;
-struct deck_node_s *next;
+    const card_t *card;
+    struct deck_node_s *prev;
+    struct deck_node_s *next;
 } deck_node_t;
 
-/* Function prototype for deck sorting */
+/* Function prototypes */
 void sort_deck(deck_node_t **deck);
+deck_node_t *init_deck(const card_t cards[52]); /* Declaration added here */
 
 #endif /* DECK_H */
