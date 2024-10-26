@@ -6,9 +6,9 @@
 /* Struct for doubly linked list */
 typedef struct listint_s
 {
-    const int n;
-    struct listint_s *prev;
-    struct listint_s *next;
+const int n;
+struct listint_s *prev;
+struct listint_s *next;
 } listint_t;
 
 /* Function prototypes for sorting algorithms */
