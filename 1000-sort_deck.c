@@ -1,83 +1,47 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include "deck.h"
+#ifndef DECK_H
+#define DECK_H
 
 /**
- * print_deck - Prints the deck of cards
- * @deck: Pointer to the head of the deck linked list
+ * enum kind_e - Enumeration of card suits.
+ * @SPADE: Spade suit
+ * @HEART: Heart suit
+ * @CLUB: Club suit
+ * @DIAMOND: Diamond suit
  */
-void print_deck(const deck_node_t *deck)
+typedef enum kind_e
 {
-    size_t i;
-    char kinds[4] = {'S', 'H', 'C', 'D'};
-
-    i = 0;
-    while (deck)
-    {
-        if (i)
-            printf(", ");
-        printf("{%s, %c}", deck->card->value, kinds[deck->card->kind]);
-        if (i == 12)
-            printf("\n");
-        i = (i + 1) % 13;
-        deck = deck->next;
-    }
-}
+    SPADE = 0,
+    HEART,
+    CLUB,
+    DIAMOND
+} kind_t;
 
 /**
- * init_deck - Initializes a deck of cards from an array of card structures
- * @cards: Array of card_t structures
- * @size: Number of cards in the array
- * Return: Pointer to the head of the created deck list
+ * struct card_s - Playing card structure
+ * @value: The card value, ranging from "Ace" to "King"
+ * @kind: The suit of the card (SPADE, HEART, CLUB, DIAMOND)
  */
-deck_node_t *init_deck(const card_t cards[52])
+typedef struct card_s
 {
-    deck_node_t *deck = NULL, *node;
-    size_t i;
-
-    for (i = 0; i < 52; i++)
-    {
-        node = malloc(sizeof(deck_node_t));
-        if (!node)
-            return NULL;
-        
-        node->card = &cards[i];
-        node->next = deck;
-        node->prev = NULL;
-        if (deck)
-            deck->prev = node;
-        deck = node;
-    }
-    return deck;
-}
+    const char *value;
+    const kind_t kind;
+} card_t;
 
 /**
- * main - Entry point
- *
- * Return: Always 0
+ * struct deck_node_s - Node of a doubly linked list representing a deck of cards
+ * @card: Pointer to the card data for this node
+ * @prev: Pointer to the previous node in the deck
+ * @next: Pointer to the next node in the deck
  */
-int main(void)
+typedef struct deck_node_s
 {
-    card_t cards[52] = {
-        {"Jack", CLUB}, {"4", HEART}, {"3", HEART}, {"3", DIAMOND}, {"Queen", HEART},
-        {"5", HEART}, {"5", SPADE}, {"10", HEART}, {"6", HEART}, {"5", DIAMOND},
-        {"6", SPADE}, {"9", HEART}, {"7", DIAMOND}, {"Jack", SPADE}, {"Ace", DIAMOND},
-        {"9", CLUB}, {"Jack", DIAMOND}, {"7", SPADE}, {"King", DIAMOND}, {"10", CLUB},
-        {"King", SPADE}, {"8", CLUB}, {"9", SPADE}, {"6", CLUB}, {"Ace", CLUB},
-        {"3", SPADE}, {"8", SPADE}, {"9", DIAMOND}, {"2", HEART}, {"4", DIAMOND},
-        {"6", DIAMOND}, {"3", CLUB}, {"Queen", CLUB}, {"10", SPADE}, {"8", DIAMOND},
-        {"8", HEART}, {"Ace", SPADE}, {"Jack", HEART}, {"2", CLUB}, {"4", SPADE},
-        {"2", SPADE}, {"2", DIAMOND}, {"King", CLUB}, {"Queen", SPADE}, {"Queen", DIAMOND},
-        {"7", CLUB}, {"7", HEART}, {"5", CLUB}, {"10", DIAMOND}, {"4", CLUB},
-        {"King", HEART}, {"Ace", HEART}
-    };
-    deck_node_t *deck;
+    const card_t *card;
+    struct deck_node_s *prev;
+    struct deck_node_s *next;
+} deck_node_t;
 
-    deck = init_deck(cards);
-    print_deck(deck);
-    printf("\n");
-    sort_deck(&deck);
-    printf("\n");
-    print_deck(deck);
-    return (0);
-}
+/* Function prototypes */
+void sort_deck(deck_node_t **deck);
+void print_deck(const deck_node_t *deck); /* Add if needed in other files */
+
+#endif /* DECK_H */
