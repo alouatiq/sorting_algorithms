@@ -2,7 +2,8 @@
 #include <stdlib.h>
 
 /**
- * counting_sort - Sorts an array of integers in ascending order using
+ * counting_sort - Sorts an array of integers
+ * in ascending order using
  *                 the Counting sort algorithm.
  * @array: Pointer to the array to be sorted
  * @size: Number of elements in the array
