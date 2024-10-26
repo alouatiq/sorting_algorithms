@@ -1,5 +1,9 @@
 #include "sort.h"
 
+/* Forward declarations */
+void quick_sort_recursive(int *array, int low, int high, size_t size);
+int lomuto_partition(int *array, int low, int high, size_t size);
+
 /**
  * quick_sort - Sorts an array of integers in ascending order using Quick Sort
  * @array: Pointer to the array to sort
@@ -43,7 +47,7 @@ int lomuto_partition(int *array, int low, int high, size_t size)
     int i = low - 1;
     int temp;
 
-    for (int j = low; j < high; j++)
+    for (int j = low; j < high; j++)  /* Requires C99 or later */
     {
         if (array[j] <= pivot)
         {
