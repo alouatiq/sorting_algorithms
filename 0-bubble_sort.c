@@ -2,7 +2,7 @@
 
 /**
 	* bubble_sort - Sorts an array of integers
- 	* in ascending order using Bubble Sort
+	* in ascending order using Bubble Sort
 	* @array: Pointer to the array to sort
 	* @size: Number of elements in the array
 	*/
