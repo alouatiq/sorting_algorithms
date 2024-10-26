@@ -1,56 +1,79 @@
-# Compiler and Flags
+# Compiler settings
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -pedantic -std=gnu99 -I.
+CFLAGS = -Wall -Wextra -Werror -pedantic -std=gnu89
+INCLUDES = -I.
 
-# Source files
-SRCS = print_array.c print_list.c sort.h
-BUBBLE_SORT = 0-bubble_sort.c
-INSERTION_SORT = 1-insertion_sort_list.c
-SELECTION_SORT = 2-selection_sort.c
-QUICK_SORT = 3-quick_sort.c
+# Source files for sorting algorithms
+SOURCES = 0-bubble_sort.c 1-insertion_sort_list.c 2-selection_sort.c 3-quick_sort.c \
+          100-shell_sort.c 101-cocktail_sort_list.c 102-counting_sort.c \
+          103-merge_sort.c 104-heap_sort.c 105-radix_sort.c 106-bitonic_sort.c \
+          107-quick_sort_hoare.c 1000-sort_deck.c
+
+# Source files for auxiliary functions
+AUXILIARY = print_array.c print_list.c
 
 # Main test files
-MAIN_BUBBLE = main/0-main.c
-MAIN_INSERTION = main/1-main.c
-MAIN_SELECTION = main/2-main.c
-MAIN_QUICK = main/3-main.c
+MAIN_TESTS = main/0-main.c main/1-main.c main/2-main.c main/3-main.c main/100-main.c \
+             main/101-main.c main/102-main.c main/103-main.c main/104-main.c main/105-main.c \
+             main/106-main.c main/107-main.c main/1000-main.c
 
-# Executable names
-BUBBLE_EXEC = bubble_sort
-INSERTION_EXEC = insertion_sort
-SELECTION_EXEC = selection_sort
-QUICK_EXEC = quick_sort
+# Executable files for each test
+EXECS = bubble_sort insertion_sort selection_sort quick_sort shell_sort cocktail_sort \
+        counting_sort merge_sort heap_sort radix_sort bitonic_sort quick_sort_hoare deck_sort
 
-# All target - Builds all executables
-all: $(BUBBLE_EXEC) $(INSERTION_EXEC) $(SELECTION_EXEC) $(QUICK_EXEC)
+# Targets for each individual test
+all: $(EXECS)
 
-# Compile each sorting algorithm with its main file and helper functions
-$(BUBBLE_EXEC): $(BUBBLE_SORT) $(SRCS) $(MAIN_BUBBLE)
-	$(CC) $(CFLAGS) $(MAIN_BUBBLE) $(BUBBLE_SORT) print_array.c -o $(BUBBLE_EXEC)
+bubble_sort: main/0-main.c 0-bubble_sort.c $(AUXILIARY) sort.h
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ main/0-main.c 0-bubble_sort.c $(AUXILIARY)
 
-$(INSERTION_EXEC): $(INSERTION_SORT) $(SRCS) $(MAIN_INSERTION)
-	$(CC) $(CFLAGS) $(MAIN_INSERTION) $(INSERTION_SORT) print_list.c -o $(INSERTION_EXEC)
+insertion_sort: main/1-main.c 1-insertion_sort_list.c $(AUXILIARY) sort.h
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ main/1-main.c 1-insertion_sort_list.c $(AUXILIARY)
 
-$(SELECTION_EXEC): $(SELECTION_SORT) $(SRCS) $(MAIN_SELECTION)
-	$(CC) $(CFLAGS) $(MAIN_SELECTION) $(SELECTION_SORT) print_array.c -o $(SELECTION_EXEC)
+selection_sort: main/2-main.c 2-selection_sort.c $(AUXILIARY) sort.h
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ main/2-main.c 2-selection_sort.c $(AUXILIARY)
 
-$(QUICK_EXEC): $(QUICK_SORT) $(SRCS) $(MAIN_QUICK)
-	$(CC) $(CFLAGS) $(MAIN_QUICK) $(QUICK_SORT) print_array.c -o $(QUICK_EXEC)
+quick_sort: main/3-main.c 3-quick_sort.c $(AUXILIARY) sort.h
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ main/3-main.c 3-quick_sort.c $(AUXILIARY)
 
-# Test target - Runs each executable in sequence
+shell_sort: main/100-main.c 100-shell_sort.c $(AUXILIARY) sort.h
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ main/100-main.c 100-shell_sort.c $(AUXILIARY)
+
+cocktail_sort: main/101-main.c 101-cocktail_sort_list.c $(AUXILIARY) sort.h
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ main/101-main.c 101-cocktail_sort_list.c $(AUXILIARY)
+
+counting_sort: main/102-main.c 102-counting_sort.c $(AUXILIARY) sort.h
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ main/102-main.c 102-counting_sort.c $(AUXILIARY)
+
+merge_sort: main/103-main.c 103-merge_sort.c $(AUXILIARY) sort.h
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ main/103-main.c 103-merge_sort.c $(AUXILIARY)
+
+heap_sort: main/104-main.c 104-heap_sort.c $(AUXILIARY) sort.h
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ main/104-main.c 104-heap_sort.c $(AUXILIARY)
+
+radix_sort: main/105-main.c 105-radix_sort.c $(AUXILIARY) sort.h
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ main/105-main.c 105-radix_sort.c $(AUXILIARY)
+
+bitonic_sort: main/106-main.c 106-bitonic_sort.c $(AUXILIARY) sort.h
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ main/106-main.c 106-bitonic_sort.c $(AUXILIARY)
+
+quick_sort_hoare: main/107-main.c 107-quick_sort_hoare.c $(AUXILIARY) sort.h
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ main/107-main.c 107-quick_sort_hoare.c $(AUXILIARY)
+
+deck_sort: main/1000-main.c 1000-sort_deck.c $(AUXILIARY) sort.h deck.h
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ main/1000-main.c 1000-sort_deck.c $(AUXILIARY)
+
+# Target to test all executables
 test: all
-	@echo "\nTesting Bubble Sort:"
-	@./$(BUBBLE_EXEC)
-	@echo "\nTesting Insertion Sort:"
-	@./$(INSERTION_EXEC)
-	@echo "\nTesting Selection Sort:"
-	@./$(SELECTION_EXEC)
-	@echo "\nTesting Quick Sort:"
-	@./$(QUICK_EXEC)
+	@echo "Running tests..."
+	@for exec in $(EXECS); do \
+		echo "\nRunning $$exec:"; \
+		./$$exec; \
+	done
 
-# Clean target - Removes all executables
+# Clean up generated files
 clean:
-	rm -f $(BUBBLE_EXEC) $(INSERTION_EXEC) $(SELECTION_EXEC) $(QUICK_EXEC)
+	rm -f $(EXECS)
+	rm -f *.o
 
-# Phony targets
-.PHONY: all test clean
+.PHONY: all clean test
