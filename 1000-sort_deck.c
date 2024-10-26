@@ -1,75 +1,83 @@
+#include <stdlib.h>
+#include <stdio.h>
 #include "deck.h"
-#include <string.h>
 
 /**
-	* compare_cards - Compares two cards based on their value and suit.
-	* @card1: First card
-	* @card2: Second card
-	* Return: -1 if card1 is less than card2, 1 if greater, 0 if equal
-	*/
-int compare_cards(const card_t *card1, const card_t *card2)
+ * print_deck - Prints the deck of cards
+ * @deck: Pointer to the head of the deck linked list
+ */
+void print_deck(const deck_node_t *deck)
 {
-	const char *values[] = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-	"Jack", "Queen", "King"};
-	int val1, val2;
+    size_t i;
+    char kinds[4] = {'S', 'H', 'C', 'D'};
 
-	for (val1 = 0; val1 < 13; val1++)
-	if (strcmp(card1->value, values[val1]) == 0)
-	break;
-
-	for (val2 = 0; val2 < 13; val2++)
-	if (strcmp(card2->value, values[val2]) == 0)
-	break;
-
-	if (val1 != val2)
-	return (val1 - val2);
-	return (card1->kind - card2->kind);
+    i = 0;
+    while (deck)
+    {
+        if (i)
+            printf(", ");
+        printf("{%s, %c}", deck->card->value, kinds[deck->card->kind]);
+        if (i == 12)
+            printf("\n");
+        i = (i + 1) % 13;
+        deck = deck->next;
+    }
 }
 
 /**
-	* insertion_sort_deck - Sorts a deck of cards using insertion sort.
-	* @deck: Double pointer to the head of the deck
-	*/
-void insertion_sort_deck(deck_node_t **deck)
+ * init_deck - Initializes a deck of cards from an array of card structures
+ * @cards: Array of card_t structures
+ * @size: Number of cards in the array
+ * Return: Pointer to the head of the created deck list
+ */
+deck_node_t *init_deck(const card_t cards[52])
 {
-	deck_node_t *current, *next, *temp;
+    deck_node_t *deck = NULL, *node;
+    size_t i;
 
-	if (!deck || !*deck || !(*deck)->next)
-	return;
-
-	current = (*deck)->next;
-	while (current)
-	{
-	next = current->next;
-	temp = current;
-
-	while (temp->prev && compare_cards(temp->card, temp->prev->card) < 0)
-	{
-	/* Swap nodes */
-	if (temp->next)
-	temp->next->prev = temp->prev;
-	temp->prev->next = temp->next;
-	temp->next = temp->prev;
-	temp->prev = temp->prev->prev;
-	temp->next->prev = temp;
-
-	if (temp->prev)
-	temp->prev->next = temp;
-	else
-	*deck = temp;
-	}
-	current = next;
-	}
+    for (i = 0; i < 52; i++)
+    {
+        node = malloc(sizeof(deck_node_t));
+        if (!node)
+            return NULL;
+        
+        node->card = &cards[i];
+        node->next = deck;
+        node->prev = NULL;
+        if (deck)
+            deck->prev = node;
+        deck = node;
+    }
+    return deck;
 }
 
 /**
-	* sort_deck - Sorts a deck of cards.
-	* @deck: Double pointer to the head of the deck
-	*/
-void sort_deck(deck_node_t **deck)
+ * main - Entry point
+ *
+ * Return: Always 0
+ */
+int main(void)
 {
-	if (deck == NULL || *deck == NULL || (*deck)->next == NULL)
-	return;
+    card_t cards[52] = {
+        {"Jack", CLUB}, {"4", HEART}, {"3", HEART}, {"3", DIAMOND}, {"Queen", HEART},
+        {"5", HEART}, {"5", SPADE}, {"10", HEART}, {"6", HEART}, {"5", DIAMOND},
+        {"6", SPADE}, {"9", HEART}, {"7", DIAMOND}, {"Jack", SPADE}, {"Ace", DIAMOND},
+        {"9", CLUB}, {"Jack", DIAMOND}, {"7", SPADE}, {"King", DIAMOND}, {"10", CLUB},
+        {"King", SPADE}, {"8", CLUB}, {"9", SPADE}, {"6", CLUB}, {"Ace", CLUB},
+        {"3", SPADE}, {"8", SPADE}, {"9", DIAMOND}, {"2", HEART}, {"4", DIAMOND},
+        {"6", DIAMOND}, {"3", CLUB}, {"Queen", CLUB}, {"10", SPADE}, {"8", DIAMOND},
+        {"8", HEART}, {"Ace", SPADE}, {"Jack", HEART}, {"2", CLUB}, {"4", SPADE},
+        {"2", SPADE}, {"2", DIAMOND}, {"King", CLUB}, {"Queen", SPADE}, {"Queen", DIAMOND},
+        {"7", CLUB}, {"7", HEART}, {"5", CLUB}, {"10", DIAMOND}, {"4", CLUB},
+        {"King", HEART}, {"Ace", HEART}
+    };
+    deck_node_t *deck;
 
-	insertion_sort_deck(deck);
+    deck = init_deck(cards);
+    print_deck(deck);
+    printf("\n");
+    sort_deck(&deck);
+    printf("\n");
+    print_deck(deck);
+    return (0);
 }
