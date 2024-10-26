@@ -2,7 +2,8 @@
 #include <stdlib.h>
 
 /**
- * merge_sort - Sorts an array of integers in ascending order using Merge sort.
+ * merge_sort - Sorts an array of integers
+ * in ascending order using Merge sort.
  * @array: Pointer to the array to be sorted
  * @size: Number of elements in the array
  */
