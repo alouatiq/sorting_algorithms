@@ -1,6 +1,6 @@
 # Compiler and Flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -pedantic -std=gnu89 -I.
+CFLAGS = -Wall -Wextra -Werror -pedantic -std=gnu99 -I.
 
 # Source files
 SRCS = print_array.c print_list.c sort.h
