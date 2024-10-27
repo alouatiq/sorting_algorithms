@@ -3,22 +3,22 @@
 #include "sort.h"
 
 /**
- * main - Entry point to test Bitonic Sort
- *
- * Return: Always 0
- */
+	* main - Entry point to test Bitonic Sort
+	*
+	* Return: Always 0
+	*/
 int main(void)
 {
-    int array[] = {100, 93, 40, 57, 14, 58, 85, 54, 31, 56, 46, 39, 15, 26, 78, 13};
-    size_t n = sizeof(array) / sizeof(array[0]);
+	int array[] = {100, 93, 40, 57, 14, 58, 85, 54, 31, 56, 46, 39, 15, 26, 78, 13};
+	size_t n = sizeof(array) / sizeof(array[0]);
 
-    printf("Original array:\n");
-    print_array(array, n);
+	printf("Original array:\n");
+	print_array(array, n);
 
-    printf("\nSorting using Bitonic Sort:\n");
-    bitonic_sort(array, n);
+	printf("\nSorting using Bitonic Sort:\n");
+	bitonic_sort(array, n);
 
-    printf("\nSorted array:\n");
-    print_array(array, n);
-    return (0);
+	printf("\nSorted array:\n");
+	print_array(array, n);
+	return (0);
 }
